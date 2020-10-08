@@ -1,5 +1,6 @@
 const express = require('express')
 const dBModule = require('./dBModule')
+const personModel = require('./PersonModel')
 const app = express()
 const port = 3000
 
@@ -21,7 +22,10 @@ app.get('/jesus', (req, res) => {
 })
 
 app.post('/', (req, res) => {
-  dBModule.storePerson(req.body.name, req.body.email, req.body.age)
+
+  let person = personModel.createPerson(req.body.name, req.body.email, req.body.age)
+
+  dBModule.storeElement(person)
 
   res.redirect('/')
 })
